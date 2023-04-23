@@ -1,3 +1,0 @@
-0 Khong khau trang
-1 Co khau trang
-2 Khong co nguoi

@@ -12,11 +12,6 @@ import base64
 # Disable scientific notation for clarity
 np.set_printoptions(suppress=True)
 
-# Load the model:
-# model = load_model("keras_Model.h5", compile=False)
-
-# Load the labels:
-class_names = open("labels.txt", "r").readlines()
 
 # CAMERA can be 0 or 1 based on default camera of your computer
 camera = cv2.VideoCapture(0)  # if you have second camera you can set first parameter as 1
@@ -52,7 +47,6 @@ def detect_crack(image, contour_threshold=105, local_threshold=50, avg_thres=20)
         else:
             count = data.max()
 
-    # if (count >= contour_threshold) and (avg >= avg_thres):
     if (count >= contour_threshold):
         return True
     return False
@@ -63,8 +57,6 @@ def image_detector():
     ret, image = camera.read()
     res, frame=   cv2.imencode('.jpg',image) 
     data = base64.b64encode(frame).decode("utf-8")
-    # Resize the raw image into (224-height,224-width) pixels
-    # image = cv2.resize(image, (224, 224), interpolation=cv2.INTER_AREA)
     image = cv2.resize(image, (448,448), interpolation=cv2.INTER_AREA)
 
     
@@ -83,33 +75,7 @@ def image_detector():
         else:
             return (response['type'],response['image'])
     else:
-        # with open("image/normal_image.png", "rb") as img_file_t:
-        #     temp = base64.b64encode(img_file_t.read())
-        # normal_image= temp.decode("utf-8")
-
         return ("Normal",data)
-
-    # Show the image in a window
-    cv2.imshow("Webcam Image", image)
-
-    # Make the image a numpy array and reshape it to the models input shape.
-    image = np.asarray(image, dtype=np.float32).reshape(1, 224, 224, 3)
-
-    # Normalize the image array
-    image = (image / 127.5) - 1
-
-    # Predicts the model
-    # prediction = model.predict(image)
-    # index = np.argmax(prediction)
-    # class_name = class_names[index]
-    # confidence_score = prediction[0][index]
-    #
-    # # Print prediction and confidence score
-    # print("Class:", class_name[2:], end="")
-    # print("Confidence Score:", str(np.round(confidence_score * 100))[:-2], "%")
-    # return class_names[index]
-
-    return "TEST________"
 
 # camera.release()
 # cv2.destroyAllWindows()

@@ -7,8 +7,8 @@ from uart import *
 
 
 AIO_FEED_ID = ["nutnhan1","nutnhan2"]
-AIO_USERNAME = "van0097275"
-AIO_KEY = "aio_HIyd499gkMHrnEDD9mkC0l2Xwdfz"
+AIO_USERNAME = "van00972756"
+AIO_KEY = "aio_Tbjt83yJ2VDnzozgQvJwUOS2cRWh"
 
 def connected(client):
     print("Ket noi thanh cong ...")
@@ -20,7 +20,7 @@ def subscribe(client , userdata , mid , granted_qos):
 
 def disconnected(client):
     print("Ngat ket noi ...")
-    sys.exit (1)
+    sys.exit(1)
 
 def message(client , feed_id , payload):
     #nhan du lieu tu nút nhấn của dashborad (nutnhan1 và nutnhan2)
@@ -73,14 +73,17 @@ while True:
     #     sensor_type = 0
 
 
-    counter_ai= counter_ai-1
-    if counter_ai <=0:
-        counter_ai=5
-        previous_result=ai_result
-        ai_result = image_detector()
-        print("AI output: ", ai_result)
-        if previous_result!=ai_result:
-            client.publish("ai", ai_result[0])
-            client.publish("image",ai_result[1])
+    ################## DO NOT OPEN
+    # counter_ai= counter_ai-1
+    # if counter_ai <=0:
+    #     counter_ai=5
+    #     previous_result=ai_result
+    #     ai_result = image_detector()
+    #     print("AI output: ", ai_result)
+    #     if previous_result!=ai_result:
+    #         client.publish("ai", ai_result[0])
+    #         client.publish("image",ai_result[1])
+    #######################
+
     readSerial(client)
     time.sleep(1)
